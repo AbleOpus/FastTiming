@@ -17,7 +17,8 @@ namespace FastTimingDemo
         public MainWindow()
         {
             InitializeComponent();
-            timer.Tick = Tick;
+            timer.Tick += Tick;
+            timer.Tick += Tick2;
             timer.Interval = 50;
         }
 
@@ -30,6 +31,12 @@ namespace FastTimingDemo
         private void Tick()
         {
             LabelText.Content = $"{stopwatch.Elapsed.Minutes:00}:{stopwatch.Elapsed.Seconds:00}." + 
+                $@"{stopwatch.Elapsed.Milliseconds / 10:00}";
+        }
+
+        private void Tick2()
+        {
+            Title = $"{stopwatch.Elapsed.Minutes:00}:{stopwatch.Elapsed.Seconds:00}." +
                 $@"{stopwatch.Elapsed.Milliseconds / 10:00}";
         }
 

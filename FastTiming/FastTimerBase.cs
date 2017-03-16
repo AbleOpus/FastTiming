@@ -70,7 +70,11 @@ namespace FastTiming
                 if (value < 0)
                     throw new ArgumentException("Value cannot be negative.", nameof(value));
 
-                interval = value;
+                if (value != interval)
+                {
+                    interval = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -81,14 +85,6 @@ namespace FastTiming
         {
         }
 
-        /// <summary>
-        /// Raises when the value of the <see cref="Enabled"/> property has changed.
-        /// </summary>
-        protected virtual void OnEnabledChanged() { }
-
-        /// <summary>
-        /// For designer.
-        /// </summary>
         protected FastTimerBase(IContainer container) : this()
         {
             if (container == null)
@@ -96,6 +92,11 @@ namespace FastTiming
 
             container.Add(this);
         }
+
+        /// <summary>
+        /// Raises when the value of the <see cref="Enabled"/> property has changed.
+        /// </summary>
+        protected virtual void OnEnabledChanged() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FastTimerBase"/> class
@@ -155,20 +156,22 @@ namespace FastTiming
         /// Starts the timer after the delay has elapsed.
         /// </summary>
         /// <param name="delay">The time, in milliseconds, to wait before starting.</param>
-        public async void StartDelayed(int delay)
+        public Task StartDelayed(int delay)
         {
-            await Task.Delay(delay);
-            Start();
+            return Task.Run(() =>
+            {
+                Thread.Sleep(delay);
+                syncContext.Post(o => Start(), null);
+            });
         }
 
         /// <summary>
         /// Starts the timer after the delay has elapsed.
         /// </summary>
         /// <param name="delay">The time span to wait before starting.</param>
-        public async void StartDelayed(TimeSpan delay)
+        public Task StartDelayed(TimeSpan delay)
         {
-            await Task.Delay(delay);
-            Start();
+            return StartDelayed((int)delay.TotalMilliseconds);
         }
 
         /// <summary>

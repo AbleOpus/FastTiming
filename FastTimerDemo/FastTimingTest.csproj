@@ -31,6 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -60,6 +62,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MiscTestDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MiscTestDisplay.Designer.cs">
+      <DependentUpon>MiscTestDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TickStrip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -80,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MiscTestDisplay.resx">
+      <DependentUpon>MiscTestDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TimerTesterForm.resx">
       <DependentUpon>TimerTesterForm.cs</DependentUpon>
