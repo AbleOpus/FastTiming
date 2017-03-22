@@ -85,14 +85,13 @@ namespace FastTiming
         protected override void OnTick()
         {
             CountDown--;
+            base.OnTick();
 
             if (CountDown <= 0)
             {
                 Stop();
                 OnCountDownFinished();
             }
-
-            base.OnTick();
         }
     }
 }

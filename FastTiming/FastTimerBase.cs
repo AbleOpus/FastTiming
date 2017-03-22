@@ -141,7 +141,8 @@ namespace FastTiming
 
         private void PostCallback(object state)
         {
-            OnTick();
+            if (enabled)
+                OnTick();
         }
 
         /// <summary>
